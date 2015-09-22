@@ -68,6 +68,14 @@ public class ArchivoXML
         variable.setAttribute("Valor", valor);
         clase.appendChild(variable);
     }
+    
+    public static void crearTagMetodo(String nombreMetodo, String tipoRetorno)
+    {
+        variable = doc.createElement("metodo");
+        variable.setAttribute("nombre", nombreMetodo);
+        variable.setAttribute("tipoderetorno", tipoRetorno);
+        clase.appendChild(variable);
+    }
 
     //crear documento XML
     public static void crearXML()
