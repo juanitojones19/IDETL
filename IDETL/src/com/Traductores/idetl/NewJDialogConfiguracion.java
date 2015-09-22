@@ -48,7 +48,7 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         textFieldNombreMetodo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textFieldTipoRetorno = new javax.swing.JTextField();
         botonAgregarMetodo = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
@@ -151,7 +151,7 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldTipoRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonAgregarMetodo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -178,7 +178,7 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
                     .addComponent(jLabel6)
                     .addComponent(textFieldNombreMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldTipoRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonAgregarMetodo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -213,7 +213,8 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
 
     private void botonAgregarMetodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarMetodoActionPerformed
         // TODO add your handling code here:
-        
+        MetodoControlador controladorMetodo = new MetodoControlador(this, textFieldNombreMetodo.getText(),
+                textFieldTipoRetorno.getText());
     }//GEN-LAST:event_botonAgregarMetodoActionPerformed
 
     /**
@@ -271,10 +272,10 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField textFielNombreVariable;
     private javax.swing.JTextField textFieldNombreClase;
     private javax.swing.JTextField textFieldNombreMetodo;
+    private javax.swing.JTextField textFieldTipoRetorno;
     private javax.swing.JTextField textFieldTipoValor;
     private javax.swing.JTextField textFieldValor;
     // End of variables declaration//GEN-END:variables
