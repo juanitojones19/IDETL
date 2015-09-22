@@ -6,10 +6,114 @@
 
 package com.Traductores.idetl.Controllers;
 
+import com.Traductores.idetl.Utils.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Juanito
  */
-public class MetodoControlador {
+public class MetodoControlador 
+{
+    private final String regex = "[^\\d]\\w*";
+    private static final List <String> listaMetodos = new ArrayList();
+    private static boolean bandera = true;
+    private JDialog ventana;
+    
+    public MetodoControlador(JDialog ventanaDialogo, String nombreMetodo, String tipoRetorno)
+    {
+        Diccionario.cargarPalabras("palabrasReservadas.txt");
+        ventana = ventanaDialogo;
+        
+        if(validarIdentificador(nombreMetodo))
+        {
+            //JOptionPane.showMessageDialog(ventanaDialogo, "Se agrego correctamente el metodo: " + nombreMetodo);
+            if(validarTipoRetorno(tipoRetorno))
+            {
+                JOptionPane.showMessageDialog(ventanaDialogo, "Se agrego correctamente el metodo: " + nombreMetodo);
+                agregarMetodo(nombreMetodo, tipoRetorno);
+                listaMetodos.add(nombreMetodo);
+            }else{
+                JOptionPane.showMessageDialog(ventanaDialogo,  tipoRetorno + ": No es un tipo de retorno valido");
+            }
+        }else{
+            JOptionPane.showMessageDialog(ventanaDialogo,  nombreMetodo + ": Es un nombre invalido");
+        }
+    }// fin del constructor 
+    
+    //metodo que valida el nombre de un metodo
+    public boolean validarIdentificador(String nombreMetodo)
+    {
+        boolean valido = true;
+        
+        if(!esNombreValido(nombreMetodo))// si no es valido elnombre
+        {
+            valido = false;
+        }else{// si lo es
+            if(Diccionario.buscarPalabra(nombreMetodo))// si es una palabra reservada
+            {
+                valido = false;
+            }
+        }    
+        return valido;
+    }//fin del metodo validarIdentificador
+    
+    //metodo que verfica que el tipo de valor sea correcto
+    public boolean validarTipoRetorno(String tipoRetorno)
+    {
+        DiccionarioTipoDatos.cargarPalabras("TipoRetornoMetodo.txt");
+        return DiccionarioTipoDatos.buscarPalabra(tipoRetorno);
+    }// fin del metodo validarTipoRetorno
+    
+     public boolean esNombreValido(String nombre)
+    {
+        return nombre.matches(regex);
+    }
+    
+    public boolean esPalabraReservada(String nombre)
+    {
+        return Diccionario.buscarPalabra(nombre);
+    }
+    
+    public boolean tipoValorValido(String tipoValor)
+    {
+        return DiccionarioTipoDatos.buscarPalabra(tipoValor);
+    }
+    // metodo que busca dentro de una lista si el elemento esta repedito
+    public boolean yaSeAgrego(String nombreVariable)
+    {
+        //System.out.println("Entra: " + nombreVariable);
+        boolean indicador = false;
+        for(int i = 0; i < listaMetodos.size(); i++)
+        {
+            //System.out.println("lista variablres: " + listaVariablres.get(i));
+            if(listaMetodos.get(i).equals(nombreVariable))// si ya se encuentra repetido
+            {
+                indicador = true;
+            }
+        }
+        return indicador;
+    }//fin del metodo yaSeAgrego
+    
+    public void agregarMetodo(String nombreMetodo, String tipoValor)
+    {
+         if(bandera)// si es la primera vex que se agrega una variable a la clase
+        {
+            listaMetodos.add(nombreMetodo);
+            bandera = false;
+            ArchivoXML.crearTagMetodo(nombreMetodo, tipoValor);
+        }else{// de lo contrario
+            if(yaSeAgrego(nombreMetodo))// si el nombre de la variable esta repetido
+            {
+                JOptionPane.showMessageDialog(ventana, "Ya se agrego la variable " + nombreMetodo);//manda mensaje
+            }else{// de lo contrario agrega el nombre de la variable
+                listaMetodos.add(nombreMetodo);
+                ArchivoXML.crearTagMetodo(nombreMetodo, tipoValor);
+            }//fin del if - else dentro del else
+        }// fin del if - else
+    }
     
 }
