@@ -64,6 +64,7 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
         });
 
         botonAceptar.setText("Aceptar");
+        botonAceptar.setEnabled(false);
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAceptarActionPerformed(evt);
@@ -95,6 +96,7 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
         textFieldValor.setText("valor");
 
         botonAgregarVariable.setText("Agregar");
+        botonAgregarVariable.setEnabled(false);
         botonAgregarVariable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarVariableActionPerformed(evt);
@@ -106,6 +108,7 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
         jLabel7.setText("Tipo de retorno:");
 
         botonAgregarMetodo.setText("Agregar");
+        botonAgregarMetodo.setEnabled(false);
         botonAgregarMetodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarMetodoActionPerformed(evt);
@@ -198,7 +201,22 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
 
     private void botonGenerarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarClaseActionPerformed
         // TODO add your handling code here:
-        ClaseControlador controladorClase = new ClaseControlador(textFieldNombreClase.getText(), this);
+        //ClaseControlador controladorClase = new ClaseControlador(textFieldNombreClase.getText(), this);
+        if(ClaseControlador.esNombreValido(textFieldNombreClase.getText()))// si el nombre de la clase es un identificador valido
+        {
+            if(!ClaseControlador.esPalabraReservada(textFieldNombreClase.getText()))// si no es palabra reservada
+            {
+                ClaseControlador.crearClase(textFieldNombreClase.getText());// se crea la clase
+                JOptionPane.showMessageDialog(this, "Se creo correctamente la clase " + textFieldNombreClase.getText(), "Exito!", JOptionPane.INFORMATION_MESSAGE);
+                botonAceptar.setEnabled(true);
+                botonAgregarVariable.setEnabled(true);
+                botonAgregarMetodo.setEnabled(true);
+            }else{// si es palabra resrvada
+                JOptionPane.showMessageDialog(this, textFieldNombreClase.getText() + " es una palabra reservada", "Error", JOptionPane.ERROR_MESSAGE);
+            }//fin if - else que checa que no sea palabra reservada
+        }else{// si no es valido
+            JOptionPane.showMessageDialog(this, textFieldNombreClase.getText() + " no es valido el nombre", "Error", JOptionPane.ERROR_MESSAGE);
+        }//fin if - else que checa que el nombre sera valido
     }//GEN-LAST:event_botonGenerarClaseActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
@@ -208,8 +226,19 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
 
     private void botonAgregarVariableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarVariableActionPerformed
         // TODO add your handling code here:
-        VariableControlador controladorVariable = new VariableControlador(this, textFielNombreVariable.getText(), 
-                textFieldTipoValor.getText(), textFieldValor.getText());
+        //VariableControlador controladorVariable = new VariableControlador(this, textFielNombreVariable.getText(), 
+                //textFieldTipoValor.getText(), textFieldValor.getText());
+        if(VariableControlador.validar(textFielNombreVariable.getText(), textFieldTipoValor.getText()))// si es valido el nombre y el tipo de valor
+        {
+            if(VariableControlador.agregarVariable(textFielNombreVariable.getText(), textFieldTipoValor.getText(), textFieldValor.getText()))// si se puede agregar
+            {
+                JOptionPane.showMessageDialog(this, VariableControlador.obtenerMensaje(), "Exito", JOptionPane.INFORMATION_MESSAGE);
+            }else{// de lo contariro manda mensaejd e error
+                JOptionPane.showMessageDialog(this, VariableControlador.obtenerMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }else{// de lo contario mande mensaje de error
+            JOptionPane.showMessageDialog(this, VariableControlador.obtenerMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botonAgregarVariableActionPerformed
 
     private void botonAgregarMetodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarMetodoActionPerformed
