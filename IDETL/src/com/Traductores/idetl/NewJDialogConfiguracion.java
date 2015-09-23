@@ -8,6 +8,7 @@ package com.Traductores.idetl;
 
 import com.Traductores.idetl.Controllers.*;
 import com.Traductores.idetl.Utils.ArchivoXML;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -213,8 +214,32 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
 
     private void botonAgregarMetodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarMetodoActionPerformed
         // TODO add your handling code here:
-        MetodoControlador controladorMetodo = new MetodoControlador(this, textFieldNombreMetodo.getText(),
-                textFieldTipoRetorno.getText());
+        MetodoControlador controladorMetodo = new MetodoControlador();
+        if(MetodoControlador.esNombreValido(textFieldNombreMetodo.getText()))// si el nombre del metodo es valid
+        {
+            if(!MetodoControlador.esPalabraReservada(textFieldNombreMetodo.getText()))// si no es palabra reservada
+            {
+                if(MetodoControlador.validarTipoRetorno(textFieldTipoRetorno.getText()))// si el tipo de retorno que especifico es valido
+                {
+                    if(MetodoControlador.agregarMetodo(textFieldNombreMetodo.getText(), textFieldTipoRetorno.getText()))//si fue exitoso agregar el metodo
+                    {
+                        JOptionPane.showMessageDialog(this, "SE agrego correctamente el metodo: " + textFieldNombreMetodo.getText());
+                        MetodoControlador.agregarMetodo(textFieldNombreMetodo.getText(), textFieldTipoRetorno.getText());
+                        VentanaParametros ventanaParametros = new VentanaParametros();
+                        ventanaParametros.setModal(true);
+                        ventanaParametros.setVisible(true);
+                    }else{// ya esta repedito el metodo
+                        JOptionPane.showMessageDialog(this, "Ya esta el metodo: " + textFieldNombreMetodo.getText());
+                    }
+                }else{// si el tipo de retorno no es valido
+                    JOptionPane.showMessageDialog(this, textFieldTipoRetorno.getText() + " Tipo de retorno invalido ");
+                }//fin else - if de validar el tipo de retorno
+            }else{// el nombre del metodo es palabra reservada
+                JOptionPane.showMessageDialog(this, textFieldNombreMetodo.getText() + " Es palabra reservada");
+            }// fin if - else que valida que el nombre del metodo  no sea palabra reservada
+        }else{// el nombre del metodo no es valido
+            JOptionPane.showMessageDialog(this, textFieldNombreMetodo.getText() + " No es un nombre valido");
+        }// fin if -else que valida que el nombre sea valido
     }//GEN-LAST:event_botonAgregarMetodoActionPerformed
 
     /**
