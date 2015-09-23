@@ -33,19 +33,26 @@ public class ClaseControlador
         }
     }
     
-    public boolean esNombreValido(String nombreClase)
+    public static boolean esNombreValido(String nombreClase)
     {
         return nombreClase.matches(regexIdentificador);
     }
     
-    public boolean esPalabraReservada(String nombreClase)
+    public static boolean esPalabraReservada(String nombreClase)
     {
+        Diccionario.cargarPalabras("palabrasReservadas.txt");
         return Diccionario.buscarPalabra(nombreClase);
     }
     
     public static void generarXmlClase(String nombreClase)
     {
         System.out.printf("Se genero la clase %s\n", nombreClase);
+    }
+    
+    public static void crearClase(String nombreClase)
+    {
+        ArchivoXML.crearDocumentoXML();
+        ArchivoXML.crearTagClase(nombreClase);
     }
     
 }
