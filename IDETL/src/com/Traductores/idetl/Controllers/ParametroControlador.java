@@ -21,7 +21,6 @@ public class ParametroControlador
     private static final String regex = "[^\\d]\\w*";
     private static final List <String> listaMetodos = new ArrayList();
     private static boolean bandera = true;
-    private static int contador = 0;
     private JDialog ventana;
     
     public ParametroControlador()
@@ -105,15 +104,14 @@ public class ParametroControlador
         return indicador;
     }//fin del metodo yaSeAgrego
     
-    public static boolean agregarMetodo(String nombreMetodo, String tipoValor)
+    public static boolean agregarParametros(String nombreMetodo, String tipoValor)
     {
         boolean exitoso = true;
         if(bandera)// si es la primera vex que se agrega una variable a la clase
         {
             listaMetodos.add(nombreMetodo);
             bandera = false;
-            contador++;
-            ArchivoXML.atributoParametro(contador, nombreMetodo, tipoValor);
+            ArchivoXML.atributoParametro(nombreMetodo, tipoValor);
         }else{// de lo contrario
             if(yaSeAgrego(nombreMetodo))// si el nombre de la variable esta repetido
             {
@@ -121,11 +119,9 @@ public class ParametroControlador
                 exitoso = false;
             }else{// de lo contrario agrega el nombre de la variable
                 listaMetodos.add(nombreMetodo);
-                contador++;
-                ArchivoXML.atributoParametro(contador, nombreMetodo, tipoValor);
+                ArchivoXML.atributoParametro(nombreMetodo, tipoValor);
             }//fin del if - else dentro del else
         }// fin del if - else
         return exitoso;
     }
-    
 }
