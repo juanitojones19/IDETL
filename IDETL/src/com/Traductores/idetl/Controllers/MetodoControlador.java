@@ -18,16 +18,21 @@ import javax.swing.JOptionPane;
  */
 public class MetodoControlador 
 {
-    private final String regex = "[^\\d]\\w*";
+    private static final String regex = "[^\\d]\\w*";
     private static final List <String> listaMetodos = new ArrayList();
     private static boolean bandera = true;
     private JDialog ventana;
+    
+    public MetodoControlador()
+    {
+        Diccionario.cargarPalabras("palabrasReservadas.txt");
+    }
     
     public MetodoControlador(JDialog ventanaDialogo, String nombreMetodo, String tipoRetorno)
     {
         Diccionario.cargarPalabras("palabrasReservadas.txt");
         ventana = ventanaDialogo;
-        
+        /*
         if(validarIdentificador(nombreMetodo))
         {
             //JOptionPane.showMessageDialog(ventanaDialogo, "Se agrego correctamente el metodo: " + nombreMetodo);
@@ -42,6 +47,7 @@ public class MetodoControlador
         }else{
             JOptionPane.showMessageDialog(ventanaDialogo,  nombreMetodo + ": Es un nombre invalido");
         }
+        */
     }// fin del constructor 
     
     //metodo que valida el nombre de un metodo
@@ -62,28 +68,28 @@ public class MetodoControlador
     }//fin del metodo validarIdentificador
     
     //metodo que verfica que el tipo de valor sea correcto
-    public boolean validarTipoRetorno(String tipoRetorno)
+    public static boolean validarTipoRetorno(String tipoRetorno)
     {
         DiccionarioTipoDatos.cargarPalabras("TipoRetornoMetodo.txt");
         return DiccionarioTipoDatos.buscarPalabra(tipoRetorno);
     }// fin del metodo validarTipoRetorno
     
-     public boolean esNombreValido(String nombre)
+     public static boolean esNombreValido(String nombre)
     {
         return nombre.matches(regex);
     }
     
-    public boolean esPalabraReservada(String nombre)
+    public static boolean esPalabraReservada(String nombre)
     {
         return Diccionario.buscarPalabra(nombre);
     }
     
-    public boolean tipoValorValido(String tipoValor)
+    public static boolean tipoValorValido(String tipoValor)
     {
         return DiccionarioTipoDatos.buscarPalabra(tipoValor);
     }
     // metodo que busca dentro de una lista si el elemento esta repedito
-    public boolean yaSeAgrego(String nombreVariable)
+    public static boolean yaSeAgrego(String nombreVariable)
     {
         //System.out.println("Entra: " + nombreVariable);
         boolean indicador = false;
@@ -98,9 +104,10 @@ public class MetodoControlador
         return indicador;
     }//fin del metodo yaSeAgrego
     
-    public void agregarMetodo(String nombreMetodo, String tipoValor)
+    public static boolean agregarMetodo(String nombreMetodo, String tipoValor)
     {
-         if(bandera)// si es la primera vex que se agrega una variable a la clase
+        boolean exitoso = true;
+        if(bandera)// si es la primera vex que se agrega una variable a la clase
         {
             listaMetodos.add(nombreMetodo);
             bandera = false;
@@ -108,12 +115,14 @@ public class MetodoControlador
         }else{// de lo contrario
             if(yaSeAgrego(nombreMetodo))// si el nombre de la variable esta repetido
             {
-                JOptionPane.showMessageDialog(ventana, "Ya se agrego la variable " + nombreMetodo);//manda mensaje
+                //JOptionPane.showMessageDialog(ventana, "Ya se agrego la variable " + nombreMetodo);//manda mensaje
+                exitoso = false;
             }else{// de lo contrario agrega el nombre de la variable
                 listaMetodos.add(nombreMetodo);
                 ArchivoXML.crearTagMetodo(nombreMetodo, tipoValor);
             }//fin del if - else dentro del else
         }// fin del if - else
+        return exitoso;
     }
     
 }
