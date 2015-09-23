@@ -122,7 +122,7 @@ public class VentanaParametros extends javax.swing.JDialog {
                     if(!ParametroControlador.yaSeAgrego(textFieldParametro.getText()))// si no se ha agregado un parametro con el mismo nombre
                     {
                         //ParametroControlador.agregarMetodo(text, null)
-                        ParametroControlador.agregarMetodo(textFieldParametro.getText(), textFieldTipoDato.getText());//cambiar nombre del metodo
+                        ParametroControlador.agregarParametros(textFieldParametro.getText(), textFieldTipoDato.getText());//cambiar nombre del metodo
                         JOptionPane.showMessageDialog(this, textFieldParametro.getText() + " Se agrego correctamente");
                     }else{// si ya se agrego
                         JOptionPane.showMessageDialog(this, textFieldParametro.getText() + " esta repetido");
