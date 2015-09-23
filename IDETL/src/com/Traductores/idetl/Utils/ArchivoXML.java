@@ -28,6 +28,7 @@ public class ArchivoXML
     private static Document doc;
     private static Element clase;
     private static Element variable;
+    private static Element metodo;
     public ArchivoXML()
     {
         crearDocumentoXML();
@@ -71,10 +72,17 @@ public class ArchivoXML
     
     public static void crearTagMetodo(String nombreMetodo, String tipoRetorno)
     {
-        variable = doc.createElement("metodo");
-        variable.setAttribute("nombre", nombreMetodo);
-        variable.setAttribute("tipoderetorno", tipoRetorno);
-        clase.appendChild(variable);
+        metodo = doc.createElement("metodo");
+        metodo.setAttribute("nombre", nombreMetodo);
+        metodo.setAttribute("tipoderetorno", tipoRetorno);
+        
+    }
+    
+    public static void atributoParametro(int contador, String nombreParametro, String tipoDato)
+    {
+        metodo.setAttribute("nombreParametro" + contador, nombreParametro);
+        metodo.setAttribute("tipoDato" + contador, tipoDato);
+        
     }
 
     //crear documento XML
@@ -85,6 +93,7 @@ public class ArchivoXML
         {
             //se agrega el tago principal al documento
             doc.appendChild(clase);
+            clase.appendChild(metodo);
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
