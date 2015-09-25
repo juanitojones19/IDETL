@@ -41,10 +41,7 @@ public class Diccionario
     //metodo que busca una palabra dada en la lista map
     public static boolean buscarPalabra(String palabra)
     {
-        if(listaDiccionario.containsKey(palabra))
-        {
-            System.out.printf("Token: %s Resultado: %s\n", palabra, listaDiccionario.get(palabra));
-        }
+        
         return listaDiccionario.containsKey(palabra);
     }// fin del metodo buscarPalabras
     
