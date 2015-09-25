@@ -19,6 +19,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.StringWriter;
 /**
  *
  * @author JC
@@ -87,11 +88,12 @@ public class ArchivoXML
     }
 
     //crear documento XML
-    public static void crearXML()
+    public static void contendioXML(String ruta, String nombre)
     {
-
+        String contenido = "";
         try
         {
+            
             //se agrega el tago principal al documento
             doc.appendChild(clase);
 
@@ -99,14 +101,15 @@ public class ArchivoXML
             Transformer transformer = transformerFactory.newTransformer();
 
             DOMSource source = new DOMSource(doc);
-            File archivo = new File("archivoXML.xml");
-            StreamResult result = new StreamResult(archivo);
+            File archivo = new File(ruta+"\\"+nombre);
+            StreamResult result = new StreamResult(new StringWriter());
             transformer.transform(source, result);
+            //contenido = result.getWriter().toString();
         }catch (TransformerConfigurationException ex){
             ex.printStackTrace();
         }catch (TransformerException ex){
             ex.printStackTrace();
         }
-
+        
     }// fin del metodo crearXML
 }
