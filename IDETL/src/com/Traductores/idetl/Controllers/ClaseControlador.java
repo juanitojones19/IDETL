@@ -22,8 +22,8 @@ public class ClaseControlador
     {
         Diccionario.cargarPalabras("palabrasReservadas.txt");
         generarXmlClase(nombreClase);
-        System.out.println("Valido?: " + esNombreValido(nombreClase));
-        System.out.println("PalabraReservada?: " + esPalabraReservada(nombreClase));
+        //System.out.println("Valido?: " + esNombreValido(nombreClase));
+        //System.out.println("PalabraReservada?: " + esPalabraReservada(nombreClase));
         if(esPalabraReservada(nombreClase))
         {
             JOptionPane.showMessageDialog(jDialogVentana, Diccionario.obtenerListaPalabras().get(nombreClase));
