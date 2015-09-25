@@ -21,7 +21,6 @@ public class MetodoControlador
     private static final String regex = "[^\\d]\\w*";
     private static final List <String> listaMetodos = new ArrayList();
     private static boolean bandera = true;
-    private JDialog ventana;
     
     public MetodoControlador()
     {
@@ -31,23 +30,7 @@ public class MetodoControlador
     public MetodoControlador(JDialog ventanaDialogo, String nombreMetodo, String tipoRetorno)
     {
         Diccionario.cargarPalabras("palabrasReservadas.txt");
-        ventana = ventanaDialogo;
-        /*
-        if(validarIdentificador(nombreMetodo))
-        {
-            //JOptionPane.showMessageDialog(ventanaDialogo, "Se agrego correctamente el metodo: " + nombreMetodo);
-            if(validarTipoRetorno(tipoRetorno))
-            {
-                JOptionPane.showMessageDialog(ventanaDialogo, "Se agrego correctamente el metodo: " + nombreMetodo);
-                agregarMetodo(nombreMetodo, tipoRetorno);
-                listaMetodos.add(nombreMetodo);
-            }else{
-                JOptionPane.showMessageDialog(ventanaDialogo,  tipoRetorno + ": No es un tipo de retorno valido");
-            }
-        }else{
-            JOptionPane.showMessageDialog(ventanaDialogo,  nombreMetodo + ": Es un nombre invalido");
-        }
-        */
+        
     }// fin del constructor 
     
     //metodo que valida el nombre de un metodo
