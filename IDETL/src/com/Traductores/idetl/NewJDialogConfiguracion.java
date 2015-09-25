@@ -14,6 +14,8 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -236,30 +238,26 @@ public class NewJDialogConfiguracion extends javax.swing.JDialog {
     }//GEN-LAST:event_botonGenerarClaseActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
-        //ArchivoXML.crearXML();
-        //textAreaXML.setText(LectorArchivoXML.obtenerXML("prueba.xml"));
-        //String texto = ArchivoXML.contendioXML();
-        //textAreaXML.setText(LectorArchivoXML.obtenerXML(texto));
-        //LectorArchivoXML lector = new LectorArchivoXML("prueba.xml");
-        //Creamos el objeto JFileChooser
+        
         JFileChooser fc=new JFileChooser();
+        
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter(".xml","xml");
+        fc.setFileFilter(filtro);
 
         //Abrimos la ventana, guardamos la opcion seleccionada por el usuario
         int seleccion=fc.showSaveDialog(this);
 
         //Si el usuario, pincha en aceptar
-        if(seleccion==JFileChooser.APPROVE_OPTION){
+        if(seleccion == JFileChooser.APPROVE_OPTION)
+        {          
+            ArchivoXML.contendioXML(fc.getSelectedFile().toString());
+            textAreaXML.setText(LectorArchivoXML.obtenerXML(fc.getSelectedFile().toString()+".xml"));
+            botonAceptar.setEnabled(false);
+        }
 
-            //Seleccionamos el fichero
-            //File fichero=fc.getSelectedFile();
-            //File fichero = new File(fc.getCurrentDirectory()+ "\\" + textFieldNombreClase.getText() + ".xml");
-            System.out.println(fc.getCurrentDirectory().toString()+"\\"+fc.getName().toString());
-            ArchivoXML.contendioXML(fc.getCurrentDirectory().toString(), fc.getName());
-
-            
- 
-}
+        
+        //mostar el contenido en un XML
+        
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAgregarVariableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarVariableActionPerformed
