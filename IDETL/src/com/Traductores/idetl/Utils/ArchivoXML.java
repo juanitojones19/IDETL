@@ -88,9 +88,8 @@ public class ArchivoXML
     }
 
     //crear documento XML
-    public static void contendioXML(String ruta, String nombre)
+    public static void contendioXML(String ruta)
     {
-        String contenido = "";
         try
         {
             
@@ -101,8 +100,8 @@ public class ArchivoXML
             Transformer transformer = transformerFactory.newTransformer();
 
             DOMSource source = new DOMSource(doc);
-            File archivo = new File(ruta+"\\"+nombre);
-            StreamResult result = new StreamResult(new StringWriter());
+            File archivo = new File(ruta+".xml");
+            StreamResult result = new StreamResult(archivo);
             transformer.transform(source, result);
             //contenido = result.getWriter().toString();
         }catch (TransformerConfigurationException ex){
