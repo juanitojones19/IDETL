@@ -25,12 +25,8 @@ public class LectorArchivoXML
     public static String obtenerXML(String ruta)
     {
         
-        System.out.println(LectorArchivo.obtenerTexto(ruta));
         String texto = LectorArchivo.obtenerTexto(ruta);
         StringTokenizer st = new StringTokenizer(texto,">");
-        System.out.println("Hay un total de: "+st.countTokens()+" tokens.");
-        //System.out.print(st.nextToken()+ ">\n");
-        //System.out.print(st.nextToken()+ ">\n");
         texto = "";
         texto += st.nextToken()+ ">\n";
         texto += st.nextToken()+ ">\n";
@@ -42,7 +38,7 @@ public class LectorArchivoXML
                 texto += token+ ">";
             }else{
                  //System.out.print("\t"+token + ">\n"); 
-                texto += "\t"+token + ">\n";
+                texto += "    "+token + ">\n";
             }
         }
             
